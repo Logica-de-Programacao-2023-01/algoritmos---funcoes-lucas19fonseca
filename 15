@@ -1,1 +1,43 @@
+package main
 
+import (
+	"errors"
+	"fmt"
+)
+
+// Retorna verdadeiro se o número estiver presente no slice, falso caso contrário
+// Retorna um erro se o slice estiver vazio
+func VerificarNumeroNoSlice(numero int, slice []int) (bool, error) {
+	if len(slice) == 0 {
+		return false, errors.New("slice vazio")
+	}
+
+	for _, num := range slice {
+		if num == numero {
+			return true, nil
+		}
+	}
+
+	return false, nil
+}
+
+func main() {
+	numero := 7
+	slice := []int{3, 5, 7, 9, 11}
+
+	presente, err := VerificarNumeroNoSlice(numero, slice)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println("O número", numero, "está presente no slice?", presente) // O número 7 está presente no slice? true
+	}
+
+	// Testando com o slice vazio
+	sliceVazio := []int{}
+	presenteVazio, errVazio := VerificarNumeroNoSlice(numero, sliceVazio)
+	if errVazio != nil {
+		fmt.Println("Erro:", errVazio) // Erro: slice vazio
+	} else {
+		fmt.Println("O número", numero, "está presente no slice?", presenteVazio)
+	}
+}
