@@ -1,1 +1,45 @@
+package main
 
+import (
+	"errors"
+	"fmt"
+)
+
+// Aplica função em cada elemento do slice e retorna um novo slice com os resultados
+func AplicarFuncao(slice []int, funcao func(int) int) ([]int, error) {
+	if len(slice) == 0 {
+		return nil, errors.New("slice vazio")
+	}
+
+	resultado := make([]int, len(slice))
+	for i, valor := range slice {
+		resultado[i] = funcao(valor)
+	}
+
+	return resultado, nil
+}
+
+func main() {
+	slice := []int{1, 2, 3, 4, 5}
+
+	// Definindo uma função de exemplo que eleva cada elemento ao quadrado
+	funcaoExemplo := func(numero int) int {
+		return numero * numero
+	}
+
+	resultado, err := AplicarFuncao(slice, funcaoExemplo)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println("Resultado:", resultado) // Resultado: [1 4 9 16 25]
+	}
+
+	// Testando com um slice vazio
+	sliceVazio := []int{}
+	resultadoVazio, errVazio := AplicarFuncao(sliceVazio, funcaoExemplo)
+	if errVazio != nil {
+		fmt.Println("Erro:", errVazio) // Erro: slice vazio
+	} else {
+		fmt.Println("Resultado:", resultadoVazio)
+	}
+}
