@@ -1,1 +1,25 @@
+package main
 
+import (
+	"fmt"
+	"strings"
+)
+
+func vogais(str string) int {
+	vogais := "aeiouAEIOU"
+	count := 0
+	for _, letras := range str {
+		if strings.ContainsRune(vogais, letras) {
+			count++
+		}
+	}
+	return count
+}
+
+func main() {
+
+	str := "canudo"
+
+	fmt.Printf("A palavra %s possui %v vogais!", str, vogais(str))
+
+}
