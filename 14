@@ -1,1 +1,50 @@
+package main
 
+import (
+	"errors"
+	"fmt"
+)
+
+// Retorna um novo slice contendo apenas os números presentes nos dois slices
+// Retorna um erro se um dos slices estiver vazio
+func ObterNumerosComuns(slice1, slice2 []int) ([]int, error) {
+	if len(slice1) == 0 || len(slice2) == 0 {
+		return nil, errors.New("um dos slices está vazio")
+	}
+
+	numerosComuns := make([]int, 0)
+	numerosMap := make(map[int]bool)
+
+	for _, num := range slice1 {
+		numerosMap[num] = true
+	}
+
+	for _, num := range slice2 {
+		if numerosMap[num] {
+			numerosComuns = append(numerosComuns, num)
+		}
+	}
+
+	return numerosComuns, nil
+}
+
+func main() {
+	slice1 := []int{1, 2, 3, 4, 5}
+	slice2 := []int{3, 4, 5, 6, 7}
+
+	numerosComuns, err := ObterNumerosComuns(slice1, slice2)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println("Números comuns:", numerosComuns) // Números comuns: [3 4 5]
+	}
+
+	// Testando com um dos slices vazio
+	sliceVazio := []int{}
+	numerosComunsVazio, errVazio := ObterNumerosComuns(slice1, sliceVazio)
+	if errVazio != nil {
+		fmt.Println("Erro:", errVazio) // Erro: um dos slices está vazio
+	} else {
+		fmt.Println("Números comuns:", numerosComunsVazio)
+	}
+}
