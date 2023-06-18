@@ -1,1 +1,45 @@
+package main
 
+import (
+	"errors"
+	"fmt"
+	"strings"
+	"unicode"
+)
+
+// Retorna uma string contendo apenas as strings do slice que começam com uma letra maiúscula
+func ObterStringsComLetraMaiuscula(slice []string) (string, error) {
+	if len(slice) == 0 {
+		return "", errors.New("slice vazio")
+	}
+
+	var resultado strings.Builder
+	for _, str := range slice {
+		if len(str) > 0 && unicode.IsUpper(rune(str[0])) {
+			resultado.WriteString(str)
+			resultado.WriteString(" ")
+		}
+	}
+
+	return strings.TrimSpace(resultado.String()), nil
+}
+
+func main() {
+	slice := []string{"Gato", "Cachorro", "Elefante", "leão"}
+
+	stringsComLetraMaiuscula, err := ObterStringsComLetraMaiuscula(slice)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println("Strings com letra maiúscula:", stringsComLetraMaiuscula) // Strings com letra maiúscula: Gato Cachorro Elefante
+	}
+
+	// Testando com um slice vazio
+	sliceVazio := []string{}
+	stringsComLetraMaiusculaVazio, errVazio := ObterStringsComLetraMaiuscula(sliceVazio)
+	if errVazio != nil {
+		fmt.Println("Erro:", errVazio) // Erro: slice vazio
+	} else {
+		fmt.Println("Strings com letra maiúscula:", stringsComLetraMaiusculaVazio)
+	}
+}
