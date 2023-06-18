@@ -1,1 +1,17 @@
+package main
 
+import "fmt"
+
+func concatenação(str []string) string {
+	resultado := ""
+	for _, strs := range str {
+		resultado += strs
+	}
+	return resultado
+}
+
+func main() {
+	slice := []string{"League", "Of", "Legends"}
+	resultado := concatenação(slice)
+	fmt.Printf("%s concatenada fica %s", slice, resultado)
+}
