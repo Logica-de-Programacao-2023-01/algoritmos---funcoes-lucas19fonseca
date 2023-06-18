@@ -1,1 +1,18 @@
+package main
 
+import "fmt"
+
+func media(slice []int) float64 {
+	soma := 0
+	for _, valores := range slice {
+		soma += valores
+	}
+
+	return float64(soma) / float64(len(slice))
+}
+
+func main() {
+	slice := []int{1, 2, 3}
+	ma := media(slice)
+	fmt.Println("A média aritmética da Slice é:", ma)
+}
