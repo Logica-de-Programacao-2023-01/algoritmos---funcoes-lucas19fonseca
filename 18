@@ -1,0 +1,47 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+// Retorna a soma dos resultados da aplicação da função em cada elemento do slice
+// Retorna um erro se o slice estiver vazio
+func AplicarFuncaoEObterSoma(slice []int, funcao func(int) int) (int, error) {
+	if len(slice) == 0 {
+		return 0, errors.New("slice vazio")
+	}
+
+	soma := 0
+	for _, num := range slice {
+		resultado := funcao(num)
+		soma += resultado
+	}
+
+	return soma, nil
+}
+
+func main() {
+	slice := []int{1, 2, 3, 4, 5}
+
+	// Definindo a função que será aplicada em cada elemento do slice
+	dobro := func(x int) int {
+		return x * 2
+	}
+
+	resultado, err := AplicarFuncaoEObterSoma(slice, dobro)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println("Resultado:", resultado) // Resultado: 30 (2 + 4 + 6 + 8 + 10)
+	}
+
+	// Testando com o slice vazio
+	sliceVazio := []int{}
+	resultadoVazio, errVazio := AplicarFuncaoEObterSoma(sliceVazio, dobro)
+	if errVazio != nil {
+		fmt.Println("Erro:", errVazio) // Erro: slice vazio
+	} else {
+		fmt.Println("Resultado:", resultadoVazio)
+	}
+}

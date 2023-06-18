@@ -1,0 +1,58 @@
+
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+// Retorna verdadeiro se o número for primo, falso caso contrário
+func isPrimo(num int) bool {
+	if num <= 1 {
+		return false
+	}
+
+	for i := 2; i*i <= num; i++ {
+		if num%i == 0 {
+			return false
+		}
+	}
+
+	return true
+}
+
+// Retorna um novo slice contendo todos os números primos menores ou iguais a num
+// Retorna um erro se o número for negativo
+func ObterNumerosPrimos(num int) ([]int, error) {
+	if num < 0 {
+		return nil, errors.New("número negativo")
+	}
+
+	primos := []int{}
+	for i := 2; i <= num; i++ {
+		if isPrimo(i) {
+			primos = append(primos, i)
+		}
+	}
+
+	return primos, nil
+}
+
+func main() {
+	num := 20
+	primos, err := ObterNumerosPrimos(num)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println("Números primos até", num, ":", primos) // Números primos até 20: [2 3 5 7 11 13 17 19]
+	}
+
+	// Testando com um número negativo
+	numNegativo := -10
+	primosNegativos, errNegativos := ObterNumerosPrimos(numNegativo)
+	if errNegativos != nil {
+		fmt.Println("Erro:", errNegativos) // Erro: número negativo
+	} else {
+		fmt.Println("Números primos até", numNegativo, ":", primosNegativos)
+	}
+}

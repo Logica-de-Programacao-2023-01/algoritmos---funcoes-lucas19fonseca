@@ -1,0 +1,47 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+	"math"
+)
+
+// Retorna verdadeiro se o número for primo, falso caso contrário
+// Retorna um erro se o número for negativo
+func VerificarNumeroPrimo(numero int) (bool, error) {
+	if numero < 0 {
+		return false, errors.New("número negativo")
+	}
+
+	if numero < 2 {
+		return false, nil
+	}
+
+	limite := int(math.Sqrt(float64(numero)))
+	for i := 2; i <= limite; i++ {
+		if numero%i == 0 {
+			return false, nil
+		}
+	}
+
+	return true, nil
+}
+
+func main() {
+	numero := 17
+	primo, err := VerificarNumeroPrimo(numero)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println(numero, "é primo?", primo) // 17 é primo? true
+	}
+
+	// Testando com um número negativo
+	numeroNegativo := -8
+	primoNegativo, errNegativo := VerificarNumeroPrimo(numeroNegativo)
+	if errNegativo != nil {
+		fmt.Println("Erro:", errNegativo) // Erro: número negativo
+	} else {
+		fmt.Println(numeroNegativo, "é primo?", primoNegativo)
+	}
+}

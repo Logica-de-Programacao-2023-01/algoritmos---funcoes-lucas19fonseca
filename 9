@@ -1,0 +1,36 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+	"strings"
+)
+
+// Retorna um novo slice com todas as palavras contidas na string fornecida
+func ObterPalavrasDaString(str string) ([]string, error) {
+	if str == "" {
+		return nil, errors.New("string vazia")
+	}
+
+	palavras := strings.Fields(str)
+	return palavras, nil
+}
+
+func main() {
+	str := "Olá, mundo! Exemplo de string."
+	palavras, err := ObterPalavrasDaString(str)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println("Palavras:", palavras) // Palavras: [Olá, mundo! Exemplo de string.]
+	}
+
+	// Testando com uma string vazia
+	strVazia := ""
+	palavrasVazias, errVazio := ObterPalavrasDaString(strVazia)
+	if errVazio != nil {
+		fmt.Println("Erro:", errVazio) // Erro: string vazia
+	} else {
+		fmt.Println("Palavras:", palavrasVazias)
+	}
+}

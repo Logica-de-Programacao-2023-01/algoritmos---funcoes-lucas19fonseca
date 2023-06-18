@@ -1,0 +1,40 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+	"sort"
+)
+
+// Retorna um novo slice com os valores ordenados de forma crescente
+func OrdenarSlice(slice []int) ([]int, error) {
+	if len(slice) == 0 {
+		return nil, errors.New("slice vazio")
+	}
+
+	sliceOrdenado := make([]int, len(slice))
+	copy(sliceOrdenado, slice)
+	sort.Ints(sliceOrdenado)
+
+	return sliceOrdenado, nil
+}
+
+func main() {
+	slice := []int{5, 2, 8, 1, 9}
+
+	sliceOrdenado, err := OrdenarSlice(slice)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println("Slice ordenado:", sliceOrdenado) // Slice ordenado: [1 2 5 8 9]
+	}
+
+	// Testando com um slice vazio
+	sliceVazio := []int{}
+	sliceOrdenadoVazio, errVazio := OrdenarSlice(sliceVazio)
+	if errVazio != nil {
+		fmt.Println("Erro:", errVazio) // Erro: slice vazio
+	} else {
+		fmt.Println("Slice ordenado:", sliceOrdenadoVazio)
+	}
+}

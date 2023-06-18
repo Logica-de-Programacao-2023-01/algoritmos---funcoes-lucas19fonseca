@@ -1,0 +1,45 @@
+
+package main
+
+import (
+	"errors"
+	"fmt"
+	"sort"
+	"strings"
+)
+
+// Retorna uma nova string com as strings do slice em ordem alfabética
+// Retorna um erro se o slice estiver vazio
+func OrdenarStrings(slice []string) (string, error) {
+	if len(slice) == 0 {
+		return "", errors.New("slice vazio")
+	}
+
+	// Ordena o slice de strings em ordem alfabética
+	sort.Strings(slice)
+
+	// Junta as strings em uma única string separadas por espaço em branco
+	novaStr := strings.Join(slice, " ")
+
+	return novaStr, nil
+}
+
+func main() {
+	slice := []string{"banana", "abacaxi", "laranja", "uva"}
+
+	novaStr, err := OrdenarStrings(slice)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println("Nova string:", novaStr) // Nova string: abacaxi banana laranja uva
+	}
+
+	// Testando com o slice vazio
+	sliceVazio := []string{}
+	novaStrVazia, errVazia := OrdenarStrings(sliceVazio)
+	if errVazia != nil {
+		fmt.Println("Erro:", errVazia) // Erro: slice vazio
+	} else {
+		fmt.Println("Nova string:", novaStrVazia)
+	}
+}

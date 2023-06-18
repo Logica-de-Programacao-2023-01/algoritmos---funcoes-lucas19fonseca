@@ -1,0 +1,47 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+	"strings"
+)
+
+// Retorna uma nova string com todas as vogais substituídas por "*"
+// Retorna um erro se a string for vazia
+func SubstituirVogaisPorAsterisco(str string) (string, error) {
+	if len(str) == 0 {
+		return "", errors.New("string vazia")
+	}
+
+	vogais := "aeiouAEIOU"
+	var resultado strings.Builder
+
+	for _, char := range str {
+		if strings.ContainsRune(vogais, char) {
+			resultado.WriteString("*")
+		} else {
+			resultado.WriteRune(char)
+		}
+	}
+
+	return resultado.String(), nil
+}
+
+func main() {
+	str := "Hello, World!"
+	novaStr, err := SubstituirVogaisPorAsterisco(str)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println("Nova string:", novaStr) // Nova string: H*ll*, W*rld!
+	}
+
+	// Testando com uma string vazia
+	strVazia := ""
+	novaStrVazia, errVazia := SubstituirVogaisPorAsterisco(strVazia)
+	if errVazia != nil {
+		fmt.Println("Erro:", errVazia) // Erro: string vazia
+	} else {
+		fmt.Println("Nova string:", novaStrVazia)
+	}
+}
