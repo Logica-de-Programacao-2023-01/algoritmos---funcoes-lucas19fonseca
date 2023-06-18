@@ -1,1 +1,33 @@
+package main
 
+import "fmt"
+
+func findSecondLargest(nums []int) int {
+	if len(nums) < 2 {
+		panic("O slice precisa ter pelo menos dois elementos.")
+	}
+
+	largest := nums[0]
+	secondLargest := nums[1]
+
+	if secondLargest > largest {
+		largest, secondLargest = secondLargest, largest
+	}
+
+	for i := 2; i < len(nums); i++ {
+		if nums[i] > largest {
+			secondLargest = largest
+			largest = nums[i]
+		} else if nums[i] > secondLargest && nums[i] < largest {
+			secondLargest = nums[i]
+		}
+	}
+
+	return secondLargest
+}
+
+func main() {
+	nums := []int{9, 5, 2, 7, 10, 3}
+	secondLargest := findSecondLargest(nums)
+	fmt.Println("O segundo maior valor é:", secondLargest)
+}
