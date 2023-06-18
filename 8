@@ -1,1 +1,42 @@
+package main
 
+import (
+	"errors"
+	"fmt"
+)
+
+// Retorna um novo slice contendo apenas os números pares do slice fornecido
+func ObterNumerosPares(slice []int) ([]int, error) {
+	if len(slice) == 0 {
+		return nil, errors.New("slice vazio")
+	}
+
+	numerosPares := []int{}
+	for _, numero := range slice {
+		if numero%2 == 0 {
+			numerosPares = append(numerosPares, numero)
+		}
+	}
+
+	return numerosPares, nil
+}
+
+func main() {
+	slice := []int{1, 2, 3, 4, 5, 6}
+
+	numerosPares, err := ObterNumerosPares(slice)
+	if err != nil {
+		fmt.Println("Erro:", err)
+	} else {
+		fmt.Println("Números pares:", numerosPares) // Números pares: [2 4 6]
+	}
+
+	// Testando com um slice vazio
+	sliceVazio := []int{}
+	numerosParesVazios, errVazio := ObterNumerosPares(sliceVazio)
+	if errVazio != nil {
+		fmt.Println("Erro:", errVazio) // Erro: slice vazio
+	} else {
+		fmt.Println("Números pares:", numerosParesVazios)
+	}
+}
